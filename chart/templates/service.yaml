@@ -4,6 +4,9 @@ kind: Service
 metadata:
   name: {{ include "pet-battle.fullname" . }}
   labels:
+    {{- if .Values.blue_green }}
+    blue_green: {{ .Values.blue_green | quote }}
+    {{- end }}
     {{- include "pet-battle.labels" . | nindent 4 }}
 spec:
   ports:

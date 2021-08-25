@@ -263,5 +263,9 @@ pipeline {
 		// 						wait: false
 		// 	}
 		// }
+
+
+		// 💥🔨 BLUE / GREEN DEPLOYMENT GOES HERE 
+
 	}
 }

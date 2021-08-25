@@ -20,6 +20,13 @@ a_b_deploy:
 fathom: false
 # OCP route
 route: true
+
+prometheusrules: {}
+
+blue_green: false
+prod_route: false
+prod_route_svc_name: blue-pet-battle
+
 # custom end point injected by config map. This is likely to changed
 config_map: '{
   "catsUrl": "https://pet-battle-api-labs-test.apps.hivec.sandbox1405.opentlc.com",
