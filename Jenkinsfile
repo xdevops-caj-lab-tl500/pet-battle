@@ -131,7 +131,6 @@ pipeline {
 					echo "🏗 Creating a sandbox build for inside the cluster 🏗"
 					BUILD_ARGS=" --build-arg git_commit=${GIT_COMMIT} --build-arg git_url=${GIT_URL}  --build-arg build_url=${RUN_DISPLAY_URL} --build-arg build_tag=${BUILD_TAG} --build-arg JOB_NAME=${JOB_NAME} --build-arg GIT_BRANCH=${GIT_BRANCH} "
 					oc new-build --binary --name=${APP_NAME} -l app=${APP_NAME} ${BUILD_ARGS} --strategy=docker || rc=$?
-					oc set build-hook bc/${APP_NAME} --post-commit --script="curl -k -ssl -u \"${TWISTLOCK_CREDS_USR}:${TWISTLOCK_CREDS_PSW}\" ${prismaConsoleAddress}/api/v1/util/twistcli -o twistcli && chmod +x ./twistcli && ./twistcli images scan ${twistcliFlags} --user ${TWISTLOCK_CREDS_USR} --password ${TWISTLOCK_CREDS_PSW}  --address ${prismaConsoleAddress} --details \"'$OPENSHIFT_BUILD_NAME'\"" 
 					oc start-build ${APP_NAME} --from-archive=${PACKAGE} ${BUILD_ARGS} --follow --wait
 					oc tag ${OPENSHIFT_BUILD_NAMESPACE}/${APP_NAME}:latest ${DESTINATION_NAMESPACE}/${APP_NAME}:${VERSION}
 				'''
