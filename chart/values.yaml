@@ -15,7 +15,8 @@ image_namespace: petbattle
 # likely over written by the Argo definition
 image_version: latest
 a_b_deploy:
-  weight: 100
+  a_weight: 100
+  b_weight: 0
   # svc_name:
 fathom: false
 # OCP route

@@ -17,7 +17,7 @@ spec:
   to:
     kind: Service
     name: {{ include "pet-battle.fullname" . }}
-    weight: 100
+    weight: {{ .Values.a_b_deploy.a_weight | default "100" }}
   tls:
     insecureEdgeTerminationPolicy: Redirect
     termination: edge
@@ -26,7 +26,7 @@ spec:
   alternateBackends:
   - kind: Service
     name: {{ .Values.a_b_deploy.svc_name }}
-    weight: {{ .Values.a_b_deploy.weight }}
+    weight: {{ .Values.a_b_deploy.b_weight }}
   {{- end }}
 status:
   ingress:
