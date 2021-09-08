@@ -85,6 +85,11 @@ pipeline {
 			}
 		}
 
+
+		// 🌞 SONARQUBE SCANNING EXERCISE GOES HERE 
+
+		// 📜 ALLURE TESTING REPORT
+
 		// 💥🔨 PIPELINE EXERCISE GOES HERE 
 
 		
