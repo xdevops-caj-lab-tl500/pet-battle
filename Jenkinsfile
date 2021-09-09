@@ -93,29 +93,6 @@ pipeline {
 		// 💥🔨 PIPELINE EXERCISE GOES HERE 
 
 		
-		stage("🧰 Build (Compile App)") {
-			agent { label "jenkins-agent-npm" }
-			steps {
-				script {
-					env.VERSION = sh(returnStdout: true, script: "npm run version --silent").trim()
-					env.PACKAGE = "${APP_NAME}-${VERSION}.tar.gz"
-				}
-				sh 'printenv'
-
-				echo '### Install deps ###'
-				sh 'npm ci --registry http://nexus:8081/repository/labs-npm'
-
-				echo '### Running build ###'
-				sh 'npm run build '
-
-				echo '### Packaging App for Nexus ###'
-				sh '''
-					tar -zcvf ${PACKAGE} dist Dockerfile nginx.conf
-					curl -v -f -u ${NEXUS_CREDS} --upload-file ${PACKAGE} \
-						http://nexus:8081/repository/${NEXUS_REPO_NAME}/${APP_NAME}/${PACKAGE}
-				'''
-			}
-		}
 
 		stage("🧁 Bake (OpenShift Build)") {
 			options {
