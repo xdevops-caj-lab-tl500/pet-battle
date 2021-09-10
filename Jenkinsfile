@@ -13,7 +13,7 @@ pipeline {
 
 		// ArgoCD Config Repo
 		// set this as an ENV_VAR on Jenkins to make this easier?
-    // ARGOCD_CONFIG_REPO = "github.com/petbattle/ubiquitous-journey.git"
+    	// ARGOCD_CONFIG_REPO = "github.com/petbattle/ubiquitous-journey.git"
 		ARGOCD_CONFIG_REPO_PATH = "pet-battle/test/values.yaml"
 		ARGOCD_CONFIG_REPO_BRANCH = "main"
 
@@ -48,13 +48,13 @@ pipeline {
 					steps {
 						script {
 							// ensure the name is k8s compliant
-              env.TEAM_NAME = "${GITLAB_GROUP_NAME}"
+							env.TEAM_NAME = "${GITLAB_GROUP_NAME}"
 							env.NAME = "${JOB_NAME}".split("/")[0]
 							env.APP_NAME = "${NAME}".replace("/", "-").toLowerCase()
 							env.DESTINATION_NAMESPACE = "${TEAM_NAME}-test"
 							env.IMAGE_REPOSITORY = 'image-registry.openshift-image-registry.svc:5000'
-              // env.ARGOCD_CONFIG_REPO = "${ARGOCD_CONFIG_REPO}"
-              env.ARGOCD_CONFIG_REPO = "${GITLAB_HOST}/${GITLAB_GROUP_NAME}/tech-exercise.git"
+							// env.ARGOCD_CONFIG_REPO = "${ARGOCD_CONFIG_REPO}"
+							env.ARGOCD_CONFIG_REPO = "${GITLAB_HOST}/${GITLAB_GROUP_NAME}/tech-exercise.git"
 						}
             sh 'printenv'
 					}
@@ -85,13 +85,7 @@ pipeline {
 			}
 		}
 
-
-		// 🌞 SONARQUBE SCANNING EXERCISE GOES HERE 
-
-		// 📜 ALLURE TESTING REPORT
-
 		// 💥🔨 PIPELINE EXERCISE GOES HERE 
-
 		
 
 		stage("🧁 Bake (OpenShift Build)") {
@@ -226,6 +220,8 @@ pipeline {
 				}
 			}
 		}
+
+        // 📰 Post steps go here
 
 		// stage("🥾 Trigger System Tests") {
 		// 	options {
