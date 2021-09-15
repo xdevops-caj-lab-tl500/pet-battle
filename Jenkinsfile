@@ -52,6 +52,7 @@ pipeline {
 							env.NAME = "${JOB_NAME}".split("/")[0]
 							env.APP_NAME = "${NAME}".replace("/", "-").toLowerCase()
 							env.DESTINATION_NAMESPACE = "${TEAM_NAME}-test"
+              env.IMAGE_NAMESPACE = "${DESTINATION_NAMESPACE}"
 							env.IMAGE_REPOSITORY = 'image-registry.openshift-image-registry.svc:5000'
 							// env.ARGOCD_CONFIG_REPO = "${ARGOCD_CONFIG_REPO}"
 							env.ARGOCD_CONFIG_REPO = "${GITLAB_HOST}/${GITLAB_GROUP_NAME}/tech-exercise.git"
