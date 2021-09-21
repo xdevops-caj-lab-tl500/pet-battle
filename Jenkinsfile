@@ -119,6 +119,10 @@ pipeline {
 			steps {
 				echo '### Lint Helm Chart ###'
 				sh 'helm lint chart '
+
+				// Kube-linter step
+				echo '### Kube Lint ###'
+
 				echo '### Patch Helm Chart ###'
 				script {
 						env.CHART_VERSION = sh(returnStdout: true, script: "yq eval .version chart/Chart.yaml").trim()
