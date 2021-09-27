@@ -228,6 +228,8 @@ pipeline {
 
 		// 🐝 OWASP ZAP STAGE GOES HERE
 
+		// 🔏 IMAGE SIGN EXAMPLE GOES HERE
+
 		// stage("🥾 Trigger System Tests") {
 		// 	options {
 		// 		skipDefaultCheckout(true)
