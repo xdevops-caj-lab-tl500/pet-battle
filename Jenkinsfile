@@ -230,6 +230,8 @@ pipeline {
 
 		// 🔏 IMAGE SIGN EXAMPLE GOES HERE
 
+		// 🏋🏻‍♀️ LOAD TESTING EXAMPLE GOES HERE
+
 		// stage("🥾 Trigger System Tests") {
 		// 	options {
 		// 		skipDefaultCheckout(true)
