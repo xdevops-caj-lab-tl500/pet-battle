@@ -113,6 +113,8 @@ pipeline {
 				'''
 			}
 		}
+    
+    // 📠 IMAGE SCANNING EXAMPLE GOES HERE
 
 		stage("🏗️ Deploy - Helm Package") {
 			agent { label "jenkins-agent-helm" }
