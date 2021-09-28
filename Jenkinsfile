@@ -115,6 +115,9 @@ pipeline {
 		}
     
     // 📠 IMAGE SCANNING EXAMPLE GOES HERE
+    
+    
+    // 🔏 IMAGE SIGN EXAMPLE GOES HERE
 
 		stage("🏗️ Deploy - Helm Package") {
 			agent { label "jenkins-agent-helm" }
@@ -229,8 +232,6 @@ pipeline {
 		}
 
 		// 🐝 OWASP ZAP STAGE GOES HERE
-
-		// 🔏 IMAGE SIGN EXAMPLE GOES HERE
 
 		// 🏋🏻‍♀️ LOAD TESTING EXAMPLE GOES HERE
 
