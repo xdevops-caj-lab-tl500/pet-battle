@@ -52,12 +52,12 @@ pipeline {
 							env.NAME = "${JOB_NAME}".split("/")[0]
 							env.APP_NAME = "${NAME}".replace("/", "-").toLowerCase()
 							env.DESTINATION_NAMESPACE = "${TEAM_NAME}-test"
-              env.IMAGE_NAMESPACE = "${DESTINATION_NAMESPACE}"
+							env.IMAGE_NAMESPACE = "${DESTINATION_NAMESPACE}"
 							env.IMAGE_REPOSITORY = 'image-registry.openshift-image-registry.svc:5000'
 							// env.ARGOCD_CONFIG_REPO = "${ARGOCD_CONFIG_REPO}"
 							env.ARGOCD_CONFIG_REPO = "${GITLAB_HOST}/${GITLAB_GROUP_NAME}/tech-exercise.git"
 						}
-            sh 'printenv'
+						sh 'printenv'
 					}
 				}
 				stage("📝 Sandbox Build") {
@@ -70,7 +70,7 @@ pipeline {
 					}
 					steps {
 						script {
-              env.TEAM_NAME = "${TEAM_NAME}"
+							env.TEAM_NAME = "${TEAM_NAME}"
 							env.DESTINATION_NAMESPACE = "${TEAM_NAME}-dev"
 							env.IMAGE_NAMESPACE = "${DESTINATION_NAMESPACE}"
 							env.IMAGE_REPOSITORY = 'image-registry.openshift-image-registry.svc:5000'
@@ -87,7 +87,6 @@ pipeline {
 		}
 
 		// 💥🔨 PIPELINE EXERCISE GOES HERE 
-		
 
 		stage("🧁 Bake (OpenShift Build)") {
 			options {
@@ -113,9 +112,8 @@ pipeline {
 				'''
 			}
 		}
-    
-    // 📠 IMAGE SCANNING EXAMPLE GOES HERE
-    
+
+		// 📠 IMAGE SCANNING EXAMPLE GOES HERE
 
 		stage("🏗️ Deploy - Helm Package") {
 			agent { label "jenkins-agent-helm" }
@@ -228,8 +226,8 @@ pipeline {
 				}
 			}
 		}
-    
-    // 🔏 IMAGE SIGN EXAMPLE GOES HERE
+
+		// 🔏 IMAGE SIGN EXAMPLE GOES HERE
 
 		// 🐝 OWASP ZAP STAGE GOES HERE
 
@@ -244,7 +242,7 @@ pipeline {
 		// 		expression { GIT_BRANCH.startsWith("master") || GIT_BRANCH.startsWith("main") }
 		// 	}
 		// 	steps {
-		// 			echo "TODO - Run tests"               
+		// 			echo "TODO - Run tests"
 		// 			build job: "system-tests/main", 
 		// 						parameters: [[$class: 'StringParameterValue', name: 'APP_NAME', value: "${APP_NAME}" ],
 		// 													[$class: 'StringParameterValue', name: 'CHART_VERSION', value: "${CHART_VERSION}"],
@@ -252,7 +250,6 @@ pipeline {
 		// 						wait: false
 		// 	}
 		// }
-
 
 		// 💥🔨 BLUE / GREEN DEPLOYMENT GOES HERE 
 
