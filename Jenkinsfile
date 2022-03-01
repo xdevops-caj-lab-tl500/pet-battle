@@ -106,7 +106,7 @@ pipeline {
 				sh '''
 					echo "🏗 Creating a sandbox build for inside the cluster 🏗"
 					BUILD_ARGS=" --build-arg git_commit=${GIT_COMMIT} --build-arg git_url=${GIT_URL}  --build-arg build_url=${RUN_DISPLAY_URL} --build-arg build_tag=${BUILD_TAG} --build-arg JOB_NAME=${JOB_NAME} --build-arg GIT_BRANCH=${GIT_BRANCH} "
-					oc new-build --binary --name=${APP_NAME} -l app=${APP_NAME} ${BUILD_ARGS} --strategy=docker || rc=$?
+					oc new-build --binary --name=${APP_NAME} -l app=${APP_NAME} -l app.kubernetes.io/name=${APP_NAME} ${BUILD_ARGS} --strategy=docker || rc=$?
 					oc start-build ${APP_NAME} --from-archive=${PACKAGE} ${BUILD_ARGS} --follow --wait
 					oc tag ${OPENSHIFT_BUILD_NAMESPACE}/${APP_NAME}:latest ${DESTINATION_NAMESPACE}/${APP_NAME}:${VERSION}
 				'''
