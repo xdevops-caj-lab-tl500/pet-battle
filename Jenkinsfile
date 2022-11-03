@@ -20,6 +20,7 @@ pipeline {
 		// Credentials bound in OpenShift
 		GIT_CREDS = credentials("${OPENSHIFT_BUILD_NAMESPACE}-git-auth")
 		NEXUS_CREDS = credentials("${OPENSHIFT_BUILD_NAMESPACE}-nexus-password")
+        SONARQUBE_CREDS = credentials("${OPENSHIFT_BUILD_NAMESPACE}-sonarqube-auth")
 
 		// Nexus Artifact repo 
 		NEXUS_REPO_NAME="labs-static"
@@ -110,6 +111,12 @@ pipeline {
 
                 // 🌞 SONARQUBE SCANNING EXERCISE GOES HERE 
                 echo '### Running SonarQube ###'
+                sh '''
+                  export SONARQUBE_USERNAME=${SONARQUBE_CREDS_USR}
+                  export SONARQUBE_PASSWORD=${SONARQUBE_CREDS_PSW}
+                  npm run sonar
+                '''
+
 
                 echo '### Packaging App for Nexus ###'
                 sh '''
