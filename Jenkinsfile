@@ -181,7 +181,13 @@ pipeline {
 				sh 'helm lint chart '
 
 				// Kube-linter step
-				echo '### Kube Lint ###'
+                echo '### Kube Lint ###'
+                sh '''
+                    export default_option="do-not-auto-add-defaults"
+                    export includelist="no-extensions-v1beta,no-readiness-probe,no-liveness-probe,dangling-service,mismatching-selector,writable-host-mount"
+                    kube-linter lint chart/  --"${default_option}" --include "${includelist}" 
+                '''
+
 
 				echo '### Patch Helm Chart ###'
 				script {
