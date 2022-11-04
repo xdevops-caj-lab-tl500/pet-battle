@@ -102,6 +102,8 @@ pipeline {
 
                 // 💅 Lint exercise here
                 echo '### Running Linting ###'
+                sh 'npm run lint'
+
 
                 // 🃏 Jest Testing
                 echo '### Running Jest Testing ###'

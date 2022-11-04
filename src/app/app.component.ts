@@ -23,3 +23,4 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {}
 }
+const biscuits = 'something';
