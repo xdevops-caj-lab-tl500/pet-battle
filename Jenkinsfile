@@ -295,6 +295,26 @@ pipeline {
 		// 🔏 IMAGE SIGN EXAMPLE GOES HERE
 
 		// 🐝 OWASP ZAP STAGE GOES HERE
+        stage('🐝 OWASP Scan') {
+            agent { label "jenkins-agent-zap" }
+            steps {
+            sh '''
+                /zap/zap-baseline.py -r index.html -t https://pet-battle-${TEAM_NAME}-test.apps.cluster-ndfxh.ndfxh.sandbox1204.opentlc.com || return_code=$?
+                echo "exit value was  - " $return_code
+            ''' }
+            post {
+            always {
+                // publish html
+                publishHTML target: [
+                    allowMissing: false,
+                    alwaysLinkToLastBuild: false,
+                    keepAll: true,
+                    reportDir: '/zap/wrk',
+                    reportFiles: 'index.html',
+                    reportName: 'OWASP Zed Attack Proxy'
+        ] }
+        } }
+
 
 		// 🏋🏻‍♀️ LOAD TESTING EXAMPLE GOES HERE
 
