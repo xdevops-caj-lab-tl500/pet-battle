@@ -14,7 +14,7 @@ scanner(
       'sonar.test.inclusions': 'src/**/*.spec.js,src/**/*.spec.ts,src/**/*.spec.jsx,src/**/*.test.js,src/**/*.test.jsx',
       'sonar.exclusions': '**/node_modules/**',
       //'sonar.test.exclusions': 'src/app/core/*.spec.ts',
-      // 'sonar.javascript.lcov.reportPaths': 'reports/lcov.info',
+      'sonar.javascript.lcov.reportPaths': 'reports/lcov.info',
       // 'sonar.testExecutionReportPaths': 'coverage/test-reporter.xml'
     }
   },

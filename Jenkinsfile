@@ -105,6 +105,8 @@ pipeline {
 
                 // 🃏 Jest Testing
                 echo '### Running Jest Testing ###'
+                sh 'npm run test:ci'
+
 
                 echo '### Running build ###'
                 sh 'npm run build '
@@ -126,6 +128,20 @@ pipeline {
                 '''
             }
             // 📰 Post steps go here
+            post {
+                always {
+                    junit 'junit.xml'
+                    publishHTML target: [
+                        allowMissing: true,
+                        alwaysLinkToLastBuild: false,
+                        keepAll: false,
+                        reportDir: 'reports/lcov-report',
+                        reportFiles: 'index.html',
+                        reportName: 'Web Code Coverage'
+                    ]
+                }
+            }
+
         }
  
 
