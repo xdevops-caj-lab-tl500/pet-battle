@@ -318,6 +318,18 @@ pipeline {
 		}
 
 		// 🔏 IMAGE SIGN EXAMPLE GOES HERE
+        stage("🔏 Image Signing") {
+            agent { label "jenkins-agent-cosign" }
+            steps {
+                script {
+                    sh '''
+                    oc registry login
+                    cosign sign -key k8s://${TEAM_NAME}-ci-cd/${TEAM_NAME}-cosign `oc registry info`/${DESTINATION_NAMESPACE}/${APP_NAME}:${VERSION}
+                    '''
+                }
+            }
+        }
+
 
 		// 🐝 OWASP ZAP STAGE GOES HERE
         stage('🐝 OWASP Scan') {
