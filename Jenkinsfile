@@ -21,6 +21,7 @@ pipeline {
 		GIT_CREDS = credentials("${OPENSHIFT_BUILD_NAMESPACE}-git-auth")
 		NEXUS_CREDS = credentials("${OPENSHIFT_BUILD_NAMESPACE}-nexus-password")
         SONARQUBE_CREDS = credentials("${OPENSHIFT_BUILD_NAMESPACE}-sonarqube-auth")
+        ROX_CREDS = credentials("${OPENSHIFT_BUILD_NAMESPACE}-rox-auth")
 
 		// Nexus Artifact repo 
 		NEXUS_REPO_NAME="labs-static"
@@ -173,6 +174,25 @@ pipeline {
 		}
 
 		// 📠 IMAGE SCANNING EXAMPLE GOES HERE
+        stage("📠 Image Scanning") {
+            agent { label "master" }
+            steps {
+                script {
+                    sh '''
+                        set +x
+                        curl -k -L -H "Authorization: Bearer ${ROX_CREDS_PSW}" https://${ROX_CREDS_USR}/api/cli/download/roxctl-linux --output roxctl  > /dev/null;
+                        chmod +x roxctl > /dev/null
+                        export ROX_API_TOKEN=${ROX_CREDS_PSW}
+                        ./roxctl image scan --insecure-skip-tls-verify -e ${ROX_CREDS_USR}:443 --image image-registry.openshift-image-registry.svc:5000/${DESTINATION_NAMESPACE}/${APP_NAME}:${VERSION} -o table
+                    '''
+
+                    // BUILD & DEPLOY CHECKS
+                    echo '### Check for Build/Deploy Time Violations ###'
+
+                }
+            }
+        }
+
 
 		stage("🏗️ Deploy - Helm Package") {
 			agent { label "jenkins-agent-helm" }
