@@ -354,6 +354,18 @@ pipeline {
 
 
 		// 🏋🏻‍♀️ LOAD TESTING EXAMPLE GOES HERE
+        stage("🏋🏻‍♀️ Load Testing") {
+            agent { label "jenkins-agent-python" }
+            steps {
+                script {
+                    sh '''
+                    pip3 install locust
+                    locust --headless --users 10 --spawn-rate 1 -H https://${APP_NAME}-${DESTINATION_NAMESPACE}.apps.cluster-ndfxh.ndfxh.sandbox1204.opentlc.com --run-time 1m --loglevel INFO --only-summary
+                    '''
+                }
+            }
+        }
+
 
 		// stage("🥾 Trigger System Tests") {
 		// 	options {
